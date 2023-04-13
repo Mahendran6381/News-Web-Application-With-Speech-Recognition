@@ -63,7 +63,7 @@ function makeGetRequest(path) {
     console.log(newsCat[queryNum]);
     finalQue = newsCat[queryNum];
     if (typeof finalQue === 'string' && finalQue !== null && finalQue !== undefined) {
-    makeGetRequest('http://127.0.0.1:5000/'+ finalQue);
+    makeGetRequest('https://news-application-backend.onrender.com/'+ finalQue);
     }
   });
 }
@@ -74,6 +74,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
 
 if(SpeechRecognition) {
   console.log("Your Browser supports speech Recognition");
+    alert("Your Browser does support speech Recognition")
   
   const recognition = new SpeechRecognition();
   recognition.continuous = true;
@@ -84,19 +85,22 @@ if(SpeechRecognition) {
 
   const micBtn = searchForm.querySelector("button");
   const micIcon = micBtn.firstElementChild;
-
+  alert("hi its me")
   micBtn.addEventListener("click", micBtnClick);
   function micBtnClick() {
     if(micIcon.classList.contains("fa-microphone")) { // Start Voice Recognition
       recognition.start(); // First time you have to allow access to mic!
+      alert("but is clicked")
     }
     else {
       recognition.stop();
+      alert("button is not clicked")
     }
   }
 
   recognition.addEventListener("start", startSpeechRecognition); // <=> recognition.onstart = function() {...}
   function startSpeechRecognition() {
+    alert("start listing")
     micIcon.classList.remove("fa-microphone");
     micIcon.classList.add("fa-microphone-slash");
     input.focus();
@@ -107,6 +111,7 @@ if(SpeechRecognition) {
   function endSpeechRecognition() {
     micIcon.classList.remove("fa-microphone-slash");
     micIcon.classList.add("fa-microphone");
+    alert("voice disconnected")
     input.focus();
     console.log("Speech recognition service disconnected");
   }
@@ -130,7 +135,7 @@ if(SpeechRecognition) {
         finalQue = oldOne[len-2];
         input.innerText = finalQue;
         console.log(finalQue)
-        
+        alert(finalQue)
         SaySome(finalQue)
 
       }
@@ -149,6 +154,7 @@ if(SpeechRecognition) {
 }
 else {
   console.log("Your Browser does not support speech Recognition");
+  alert("Your Browser does not support speech Recognition")
   
 }
 
@@ -190,8 +196,9 @@ function matchKeyword(keyword) {
 
 function SaySome(que) {
   if (typeof que === 'string' && que !== null && que !== undefined) {
+    alert("search")
   que = que.toLowerCase().replace(/\s/g, "");
   let keyword = matchKeyword(que)
-  makeGetRequest('http://127.0.0.1:5000/'+ keyword);
+  makeGetRequest('https://news-application-backend.onrender.com/'+ keyword);
   }
 }
